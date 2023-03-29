@@ -16,7 +16,7 @@ exports.getJobs=async (req,res,next)=>{
             }:{}
 
         const jobs=await Jobs.find({...keyword})
-                        .populate('user','name email -_id').select('-__v')
+                        .populate('user','name email -_id').select('-__v ')
                         .limit(resPerPage).skip(skip)
 
         res.status(200).send(jobs)

@@ -14,13 +14,15 @@ app.get('/',(req,res)=>{
     res.json({status:'Up'})
 })
 
+
+app.use("/api/v1", require('./routes/auth'));
+app.use('/api/v1', require('./routes/jobs'))
+
 app.get('*',(req,res)=>{
     res.status(404)
     res.send('Page Not Found')
     
 })
-
-app.use("/api/v1", require('./routes/auth'));
 
 app.use((err,req,res,next)=>{
     errorHandler(err,req,res)

@@ -16,7 +16,9 @@ try{
     const decoded=await jwt.verify(token,process.env.JWT_SECRET)
     
     req.user=await User.findOne({_id:decoded.id})
+
     next()
+    
 }catch (error) {
     console.log(error);
     return res.status(500).json({

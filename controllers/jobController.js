@@ -56,6 +56,32 @@ exports.newJob=async (req,res,next)=>{
 
 }
 
+exports.updateJob=async (req,res,next)=>{
+  try{
+    const job=await Jobs.findById(req.params.id)
+
+    if(!job){
+      return res.status(400).json({error:'No Job Found'})
+    }
+
+    if(job.user.toString()!==req.user._id.toString()){
+    return  res.status(403).json({error:'UnAuthorized'})
+    }
+
+    const updatedJob=await Jobs.findByIdAndUpdate(req.params.id,req.body,{new:true})
+
+    res.status(200).json(updatedJob)
+  }catch(error){
+    if(error.name==='CastError'){
+      res.status(400).json({error:'Invalid Id'})
+    }
+  }
+}
+
+
+
+
+
 exports.deleteJob=async (req,res,next)=>{
   try{
     const job=await Jobs.findById(req.params.id)

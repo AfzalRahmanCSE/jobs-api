@@ -4,6 +4,7 @@ const {
     getJobs,
     newJob,
     getJob,
+    updateJob,
     deleteJob,
 }=require('./../controllers/jobController')
 
@@ -19,6 +20,7 @@ router.route('/job/new')
 .post(isUserAuthenticated,newJob)
 
 router.route('/job/:id')
+.patch(isUserAuthenticated,updateJob)
 .delete(isUserAuthenticated,deleteJob)
 
 module.exports=router;
